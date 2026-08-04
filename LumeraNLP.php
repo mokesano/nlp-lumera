@@ -27,11 +27,21 @@ class LumeraNLP {
     
     // --- UTILITIES DASAR ---
 
+    /**
+     * Memecah teks menjadi kalimat-kalimat.
+     * @param string $text Teks input.
+     * @return array Daftar kalimat.
+     */
     private static function _splitSentences(string $text): array {
         $sentences = preg_split('/(?<=[.?!])\s+/u', $text, -1, PREG_SPLIT_NO_EMPTY);
         return array_map('trim', $sentences);
     }
 
+    /**
+     * Tokenisasi sederhana: memecah teks menjadi kata-kata, menghapus karakter non-alfanumerik.
+     * @param string $text Teks input.
+     * @return array Daftar kata.
+     */
     private static function _tokenize(string $text): array {
         $text = function_exists('mb_strtolower') ? mb_strtolower($text) : strtolower($text);
         $text = PKPString::regexp_replace('/[^a-z0-9\s]/u', ' ', $text);
@@ -94,6 +104,9 @@ class LumeraNLP {
     
     /**
      * Filter query pengguna untuk mendapatkan kata kunci inti.
+     * @param string $query Query pengguna.
+     * @param bool $removeStopWords Apakah akan menghapus stop words.
+     * @return string Kata kunci yang difilter.
      */
     public static function filterKeywords(string $query, bool $removeStopWords = true): string {
         $keywordsRaw = trim(function_exists('mb_strtolower') ? mb_strtolower(strip_tags($query)) : strtolower(strip_tags($query)));
@@ -123,6 +136,8 @@ class LumeraNLP {
     
     /**
      * Metode ini mengembalikan tebakan bahasa yang disederhanakan.
+     * @param string $query Query pengguna.
+     * @return string Kode bahasa yang ditebak.
      */
     public static function guessLanguageCode(string $query): string {
         $queryLower = strtolower($query);
@@ -136,6 +151,9 @@ class LumeraNLP {
 
     /**
      * Membuat ringkasan cerdas (extractive summary) dari teks penuh.
+     * @param string $text Teks penuh.
+     * @param int $sentenceCount Jumlah kalimat yang diinginkan dalam ringkasan.
+     * @return string Ringkasan teks.
      */
     public static function summarizeText(string $text, int $sentenceCount = 3): string {
         $sentences = self::_splitSentences($text);
