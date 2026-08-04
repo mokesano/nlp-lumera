@@ -2,15 +2,15 @@
 declare(strict_types=1);
 
 /**
- * @file lib/wizdam/lib/nlp/WizdamNLP.inc.php
+ * @file lib/lumera/lib/nlp/LumeraNLP.inc.php
  *
- * Copyright (c) 2025 Wizdam Fork Team
+ * Copyright (c) 2025 Lumera Fork Team
  * Distributed under the GNU GPL v2.
  *
- * @class WizdamNLP
- * @ingroup wizdam_lib_nlp
+ * @class LumeraNLP
+ * @ingroup lumera_lib_nlp
  *
- * @brief Provides lightweight NLP capabilities for Wizdam Chatbot.
+ * @brief Provides lightweight NLP capabilities for Lumera Chatbot.
  */
 
 // Imports PKP untuk string utility
@@ -18,7 +18,7 @@ if (!class_exists('PKPString')) {
     import('lib.pkp.classes.core.PKPString'); 
 }
 
-class WizdamNLP {
+class LumeraNLP {
     
     /** @var array Cache untuk daftar stop words tunggal. */
     private static $_stopWordsCache = null;
